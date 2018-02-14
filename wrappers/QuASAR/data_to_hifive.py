@@ -80,7 +80,7 @@ class Encode_Data(hifive.HiCData):
                     chrint2 = self.chr2int[temp[2].lstrip('chr')]
                     bin1 = idx2index[(chrint1, int(temp[1]))]
                     bin2 = idx2index[(chrint2, int(temp[3]))]
-                    count = int(temp[4])
+                    count = float(temp[4])
                 except:
                     continue
                 if chrint2 < chrint1:

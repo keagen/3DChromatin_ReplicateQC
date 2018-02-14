@@ -78,20 +78,21 @@ m1_big[which(is.na(m1_big))]=0
 m2_big[which(is.na(m2_big))]=0
 
 #old code
+# Use this as it is compatible with latest version of hic-rep (v1.2.0)
 #========
 # prepare matrices
-#Pre_HiC <- prep(m1_big, m2_big, resol, h, maxdist)
+Pre_HiC <- prep(m1_big, m2_big, resol, h, maxdist)
 # compute score
-#SCC.out = get.scc(Pre_HiC, resol, maxdist)
+SCC.out = get.scc(Pre_HiC, resol, maxdist)
 
 #new code
 #========
 #sessionInfo()
-SCC.out = get.scc(m1_big[,-c(1:3)], m2_big[,-c(1:3)], resol, h, 0, maxdist)
+#SCC.out = get.scc(m1_big[,-c(1:3)], m2_big[,-c(1:3)], resol, h, 0, maxdist)
 #print('here')
 
 # write score
-scores=data.frame(M1=m1name,M2=m2name,score=round(SCC.out[['scc']],3),sd=SCC.out[['std']])
+scores=data.frame(M1=m1name,M2=m2name,score=SCC.out[['scc']],sd=SCC.out[['std']])
 write.table(scores,file=out,quote=FALSE,row.names=FALSE,col.names=FALSE,sep='\t')
 
 #also, plot the correlations and the weights
