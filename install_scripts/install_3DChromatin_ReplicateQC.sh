@@ -54,6 +54,7 @@ do
     module load ${modulename}
 done
 
+source activate 3DChromatin_ReplicateQC # Use conda environment specific for 3DChromatin_ReplicateQC - this is so specific packages to work together
 pythondir=$(dirname ${PATHTOPYTHON} | sed 's/\/bin\/$//g' | sed 's/\/bin$//g' )
 pythondir=${pythondir}/bin
 
@@ -98,11 +99,15 @@ eval "${cmd}"
 #HiC-Spector
 #===========
 git clone https://github.com/gersteinlab/HiC-spector ${repo_dir}/software/HiC-spector
+cd ${repo_dir}/software/HiC-spector
+# Need to use a specific commit in order to be compatible with 3DChromatin_ReplicateQC
+git reset --hard 076e9dc9e43863161fc33ce8c4358913f77beb70
+cd ${repo_dir}
 
 #QuASAR
 #======
 ${pythondir}/pip install h5py
-${pythondir}/conda install -c anaconda mpi4py
+/home/kpe8127/programs/anaconda2/bin/conda install -n 3DChromatin_ReplicateQC -c anaconda mpi4py
 ${pythondir}/pip install hifive==1.5.6
 #latest version is 1.5.6
 #git clone https://github.com/bxlab/hifive ${repo_dir}/software/hifive
